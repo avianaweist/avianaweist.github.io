@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviana Weist — Marketing Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1B2A4A; --navy-deep: #142138; --navy-mid: #2D4270;
+      --white: #FFFFFF; --gray-light: #F4F5F7; --gray-mid: #E0E2E6; --gray-text: #555555;
+      --gold: #C9A25D;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-mid);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+    }
+    .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.08em; color: var(--navy); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--gray-text); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; background: var(--navy);
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 120px 10vw 80px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -120px; right: -120px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,66,112,0.6) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-flex { display: flex; align-items: center; justify-content: space-between; gap: 64px; width: 100%; }
+    .hero-main { flex: 1; min-width: 0; }
+    .hero-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--gray-mid); text-transform: uppercase; margin-bottom: 24px; }
+    .hero-name { font-family: 'Montserrat', sans-serif; font-size: clamp(52px, 8vw, 96px); font-weight: 800; line-height: 1.0; color: var(--white); margin-bottom: 24px; }
+    .hero-name span { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.35); }
+    .hero-tagline { font-size: clamp(16px, 2vw, 20px); font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.7); max-width: 560px; margin-bottom: 48px; }
+    .hero-stats { display: flex; gap: 48px; margin-bottom: 56px; flex-wrap: wrap; }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--white); }
+    .stat-label { font-size: 12px; font-weight: 400; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { padding: 14px 32px; background: var(--white); color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s; display: inline-block; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-outline { padding: 14px 32px; background: transparent; color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(255,255,255,0.4); cursor: pointer; transition: border-color 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--white); }
+    .scroll-hint { position: absolute; bottom: 40px; left: 10vw; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 12px; }
+    .scroll-hint::after { content: ''; display: block; width: 40px; height: 1px; background: rgba(255,255,255,0.3); }
+
+    /* HERO PHOTO */
+    .hero-photo-wrap { flex-shrink: 0; width: 300px; height: 360px; position: relative; }
+    .hero-photo-frame {
+      width: 100%; height: 100%; position: relative;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 14px;
+    }
+    .hero-photo-inner { width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--navy-mid); }
+    .hero-photo-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-photo-fallback {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, var(--navy-mid), var(--navy-deep));
+    }
+    .hero-photo-fallback span {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 64px;
+      color: rgba(255,255,255,0.85); letter-spacing: 0.02em;
+    }
+    .hero-photo-caption { position: absolute; bottom: -34px; left: 14px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+    /* SECTIONS */
+    section { padding: 100px 10vw; }
+    .section-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gray-text); margin-bottom: 16px; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(28px, 4vw, 44px); font-weight: 800; line-height: 1.1; color: var(--navy); margin-bottom: 56px; }
+
+    /* ABOUT */
+    .about { background: var(--gray-light); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-body { font-size: 17px; font-weight: 300; line-height: 1.8; color: var(--gray-text); }
+    .about-body p + p { margin-top: 20px; }
+    .about-right { display: flex; flex-direction: column; gap: 16px; }
+    .about-card { background: var(--white); padding: 24px 28px; border-left: 3px solid var(--navy); }
+    .about-card-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-text); margin-bottom: 6px; }
+    .about-card-value { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); }
+
+    /* EXPERIENCE */
+    .experience { background: var(--white); }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 48px; padding: 48px 0; border-bottom: 1px solid var(--gray-mid); }
+    .exp-item:first-child { border-top: 1px solid var(--gray-mid); }
+    .exp-meta { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+    .exp-date { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-text); }
+    .exp-type { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); background: var(--navy); padding: 4px 10px; width: fit-content; }
+    .exp-type.contract { background: var(--navy-mid); }
+    .exp-type.founder { background: var(--navy-deep); }
+    .exp-content { display: flex; flex-direction: column; gap: 12px; }
+    .exp-company { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--navy); }
+    .exp-title { font-size: 14px; font-weight: 500; color: var(--gray-text); }
+    .exp-desc { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--gray-text); margin-top: 8px; }
+    .exp-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .exp-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--navy); border: 1px solid var(--gray-mid); padding: 4px 12px; text-transform: uppercase; }
+
+    /* PROJECTS */
+    .projects { background: var(--gray-light); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .project-card { background: var(--white); display: flex; flex-direction: column; transition: transform 0.2s; overflow: hidden; }
+    .project-card:hover { transform: translateY(-4px); }
+    .project-banner {
+      height: 96px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .project-banner svg { width: 34px; height: 34px; position: relative; z-index: 1; }
+    .project-banner::after {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 2px, transparent 2px, transparent 14px);
+    }
+    .banner-1 { background: linear-gradient(135deg, #1B2A4A, #2D4270); }
+    .banner-2 { background: linear-gradient(135deg, #2D4270, #3E5590); }
+    .banner-3 { background: linear-gradient(135deg, #142138, #2D4270); }
+    .banner-4 { background: linear-gradient(135deg, #C9A25D, #A9803F); }
+    .banner-5 { background: linear-gradient(135deg, #1B2A4A, #142138); }
+    .banner-6 { background: linear-gradient(135deg, #2D4270, #1B2A4A); }
+    .project-body { padding: 32px 32px 36px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .project-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--gray-mid); text-transform: uppercase; }
+    .project-title { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--navy); line-height: 1.3; }
+    .project-org { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-text); }
+    .project-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--gray-text); flex: 1; }
+    .project-result { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--navy); }
+    .project-result-label { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-text); }
+
+    /* TDA */
+    .tda { background: var(--navy); }
+    .tda .section-title { color: var(--white); }
+    .tda .section-label { color: rgba(255,255,255,0.4); }
+    .tda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .tda-body { font-size: 16px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.7); }
+    .tda-body p + p { margin-top: 20px; }
+    .tda-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .tda-stat { background: rgba(255,255,255,0.06); padding: 28px; border-top: 2px solid rgba(255,255,255,0.15); }
+    .tda-stat-num { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+    .tda-stat-label { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .tda-partners { margin-top: 32px; }
+    .tda-partners-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+    .tda-partner-list { display: flex; gap: 12px; flex-wrap: wrap; }
+    .tda-partner { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; }
+    .tda-canva-btn { display: inline-block; margin-top: 32px; padding: 14px 32px; background: var(--white); color: var(--navy); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
+    .tda-canva-btn:hover { opacity: 0.88; }
+    .tda-platforms { display: flex; gap: 28px; margin-top: 32px; flex-wrap: wrap; }
+    .tda-platform { display: flex; align-items: center; gap: 10px; }
+    .tda-platform svg { width: 22px; height: 22px; fill: rgba(255,255,255,0.75); flex-shrink: 0; }
+    .tda-platform span { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 0.02em; }
+
+    /* SKILLS */
+    .skills { background: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .skill-group { display: flex; flex-direction: column; gap: 16px; }
+    .skill-group-title { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); padding-bottom: 12px; border-bottom: 2px solid var(--navy); }
+    .skill-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-item { font-size: 14px; font-weight: 400; color: var(--gray-text); padding-left: 16px; position: relative; }
+    .skill-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 5px; height: 5px; background: var(--navy); border-radius: 50%; }
+
+    /* EDUCATION */
+    .education { background: var(--gray-light); }
+    .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .edu-card { background: var(--white); padding: 36px 40px; border-top: 3px solid var(--navy); }
+    .edu-degree { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .edu-school { font-size: 14px; font-weight: 500; color: var(--gray-text); margin-bottom: 4px; }
+    .edu-dates { font-size: 12px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-text); margin-bottom: 16px; }
+    .edu-honors { display: flex; flex-direction: column; gap: 6px; }
+    .edu-honor { font-size: 13px; font-weight: 300; color: var(--gray-text); padding-left: 14px; position: relative; }
+    .edu-honor::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 4px; background: var(--gray-text); border-radius: 50%; }
+
+    /* CONTACT */
+    .contact { background: var(--navy-deep); text-align: center; padding: 100px 10vw; }
+    .contact-title { font-family: 'Montserrat', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: var(--white); margin-bottom: 20px; }
+    .contact-sub { font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.55); margin-bottom: 48px; }
+    .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    footer { background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.08); padding: 24px 10vw; display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; }
+
+    /* FADE UP */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── CHATBOT ── */
+    #chat-bubble {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--navy); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(27,42,74,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #chat-bubble:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(27,42,74,0.45); }
+    #chat-bubble svg { width: 24px; height: 24px; fill: white; }
+
+    #chat-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: #fff; color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8px; font-weight: 800; letter-spacing: 0.06em;
+      padding: 2px 6px; border-radius: 10px; white-space: nowrap;
+    }
+
+    #chat-window {
+      position: fixed; bottom: 96px; right: 28px; z-index: 998;
+      width: 380px; max-height: 560px;
+      background: var(--white);
+      box-shadow: 0 8px 40px rgba(27,42,74,0.2);
+      display: none; flex-direction: column;
+      overflow: hidden;
+    }
+    #chat-window.open { display: flex; }
+
+    #chat-header {
+      background: var(--navy); padding: 18px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #chat-header-left { display: flex; flex-direction: column; gap: 2px; }
+    #chat-header-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: white; letter-spacing: 0.06em; text-transform: uppercase; }
+    #chat-header-sub { font-size: 11px; color: rgba(255,255,255,0.55); font-weight: 300; }
+    #chat-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); font-size: 20px; line-height: 1; padding: 0; }
+    #chat-close:hover { color: white; }
+
+    #chat-messages {
+      flex: 1; overflow-y: auto; padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      background: var(--gray-light);
+    }
+    .msg { max-width: 85%; padding: 12px 16px; font-size: 14px; line-height: 1.55; font-weight: 300; }
+    .msg.bot { background: var(--white); color: var(--navy); align-self: flex-start; border-left: 3px solid var(--navy); }
+    .msg.user { background: var(--navy); color: white; align-self: flex-end; }
+    .msg.typing { background: var(--white); align-self: flex-start; border-left: 3px solid var(--navy); display: flex; gap: 5px; align-items: center; padding: 16px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--navy-mid); animation: bounce 1.2s infinite; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+    #chat-suggestions { padding: 12px 16px; display: flex; gap: 8px; flex-wrap: wrap; background: var(--white); border-top: 1px solid var(--gray-mid); }
+    .suggestion { font-size: 11px; font-weight: 500; color: var(--navy); border: 1px solid var(--gray-mid); padding: 6px 12px; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    .suggestion:hover { background: var(--gray-light); }
+
+    #chat-input-area { display: flex; border-top: 1px solid var(--gray-mid); }
+    #chat-input { flex: 1; border: none; outline: none; padding: 14px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--navy); background: var(--white); }
+    #chat-send { background: var(--navy); border: none; padding: 0 18px; cursor: pointer; color: white; font-size: 18px; transition: background 0.2s; }
+    #chat-send:hover { background: var(--navy-mid); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 72px 6vw; }
+      .about-grid, .tda-grid, .skills-grid, .edu-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
+      .hero { padding: 100px 6vw 60px; }
+      .hero-flex { flex-direction: column-reverse; gap: 40px; }
+      .hero-photo-wrap { width: 200px; height: 240px; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
+      #chat-window { width: calc(100vw - 32px); right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Aviana Weist</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tda">TDA Media</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="Aviana-Weist-Resume.pdf" target="_blank">Resume</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-flex">
+    <div class="hero-main">
+      <p class="hero-eyebrow">Marketing Portfolio</p>
+      <h1 class="hero-name">Aviana<br><span>Weist</span></h1>
+      <p class="hero-tagline">Digital marketing professional and MS Marketing candidate building brands, automating systems, and driving measurable impact across corporate and entrepreneurial environments.</p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn-primary">View Experience</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <div class="hero-photo-inner">
+          <img src="images/avi-headshot.jpg" alt="Aviana Weist" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="hero-photo-fallback"><span>AW</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="scroll-hint">Scroll to explore</p>
+</section>
+
+<section class="about" id="about">
+  <div class="fade-up">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Marketing is where<br>strategy meets story.</h2>
+  </div>
+  <div class="about-grid fade-up">
+    <div class="about-body">
+      <p>Hi, I'm Aviana (Avi) — a marketing professional and incoming MS Marketing candidate at the University of Tampa, beginning my graduate studies this fall. Through my undergraduate marketing program I developed a strong foundation in marketing strategy, consumer behavior, brand management, and data driven decision making.</p>
+      <p>My experience includes a contracted marketing role at the Kauffman Foundation as well as internships at TVH, Go Local Interactive, Cornerstone Executive Search, and Pipeline where I gained hands on experience in social media strategy, content marketing, SEO, email marketing, and marketing automation. Outside of my corporate experience I am the founder of TDA Media, growing my personal brand thedailyavi to 23.5M+ TikTok views in the past year, and the founder and president of Women in Business at the University of Tampa.</p>
+      <p>I am passionate about building brands that connect with real audiences and developing strategies that drive real, measurable impact.</p>
+    </div>
+    <div class="about-right">
+      <div class="about-card"><p class="about-card-label">Current Status</p><p class="about-card-value">Incoming MS Marketing Candidate, University of Tampa</p></div>
+      <div class="about-card"><p class="about-card-label">Undergraduate GPA</p><p class="about-card-value">3.98 — Presidential Scholar</p></div>
+      <div class="about-card"><p class="about-card-label">Honor Societies</p><p class="about-card-value">Beta Gamma Sigma · Phi Kappa Phi</p></div>
+      <div class="about-card"><p class="about-card-label">Leadership</p><p class="about-card-value">Founder & President, Women in Business @ UTampa</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="fade-up">
+    <p class="section-label">Professional Experience</p>
+    <h2 class="section-title">Where I've built<br>real marketing work.</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">May 2025 — Present</span><span class="exp-type founder">Founder</span></div>
+      <div class="exp-content">
+        <p class="exp-company">TDA Media (The Daily Avi Media)</p>
+        <p class="exp-title">Founder</p>
+        <p class="exp-desc">TDA Media is currently in the process of becoming an LLC. Founded and operate a digital media company managing all brand strategy, content operations, partnerships, and monetization for personal brand thedailyavi. Growing platform to 23.5M+ TikTok views in the past year and 21,000+ followers across TikTok, Instagram, and YouTube. Secured brand partnerships with Apple, PopCorners, Sleepyhead, and more, and monetize through affiliate marketing across Amazon, LTK, and ShopMy.</p>
+        <div class="exp-tags"><span class="exp-tag">Brand Strategy</span><span class="exp-tag">Influencer Marketing</span><span class="exp-tag">Content Marketing</span><span class="exp-tag">Analytics</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">May 2026 — Aug 2026</span><span class="exp-type">Internship</span></div>
+      <div class="exp-content">
+        <p class="exp-company">TVH (a global B2B parts reseller)</p>
+        <p class="exp-title">Marketing Intern</p>
+        <p class="exp-desc">One project I am working on is building an AI powered marketing automation system using Google Apps Script to streamline social media content operations and improve publishing efficiency across the marketing team. Beyond that I have written copy for promotional email campaigns and various marketing initiatives, planned team outings, and contributed to day to day marketing team assignments while helping identify and ease pain points across the marketing team and cross functionally with other departments.</p>
+        <div class="exp-tags"><span class="exp-tag">Marketing Automation</span><span class="exp-tag">Google Apps Script</span><span class="exp-tag">Email Marketing</span><span class="exp-tag">Copywriting</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">May 2024 — Aug 2025</span><span class="exp-type contract">Contract</span></div>
+      <div class="exp-content">
+        <p class="exp-company">Kauffman Foundation</p>
+        <p class="exp-title">Contracted Social Media & Marketing Specialist</p>
+        <p class="exp-desc">Retained as a contracted specialist (10–40 hrs/week) supporting brand strategy and content execution for the Real World Learning initiative, spanning 34 school districts and preparing nearly 100,000 high school students for career experiences. Drove 42.9% Instagram engagement growth, led intern training sessions, and spoke weekly in front of approximately 600 students on professional development topics.</p>
+        <div class="exp-tags"><span class="exp-tag">Brand Strategy</span><span class="exp-tag">Social Media</span><span class="exp-tag">Leadership</span><span class="exp-tag">Campaign Analytics</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">Jun 2022 — Apr 2024</span><span class="exp-type">Internship</span></div>
+      <div class="exp-content">
+        <p class="exp-company">Kauffman Foundation</p>
+        <p class="exp-title">ProX Social Media Intern</p>
+        <p class="exp-desc">Developed and managed digital communication strategy for the ProX Summer program, supporting engagement for 600+ high school interns. Trained 19 intern participants in social media marketing fundamentals and campaign execution during the 5 week program.</p>
+        <div class="exp-tags"><span class="exp-tag">Social Media Strategy</span><span class="exp-tag">Content Creation</span><span class="exp-tag">Community Management</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">Summer 2025</span><span class="exp-type">Internship</span></div>
+      <div class="exp-content">
+        <p class="exp-company">Go Local Interactive</p>
+        <p class="exp-title">SEO Intern</p>
+        <p class="exp-desc">Executed local SEO strategies across multiple client accounts through Google Business Profile optimization, metadata refinement, HTML tag implementation, and internal link restructuring. Utilized Google Analytics to track organic performance metrics and deliver data driven recommendations to support client growth objectives.</p>
+        <div class="exp-tags"><span class="exp-tag">SEO</span><span class="exp-tag">Google Analytics</span><span class="exp-tag">Digital Marketing</span><span class="exp-tag">Data Analysis</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">Summer 2024</span><span class="exp-type">Internship</span></div>
+      <div class="exp-content">
+        <p class="exp-company">Cornerstone Executive Search</p>
+        <p class="exp-title">Digital Marketing Intern</p>
+        <p class="exp-desc">Executed LinkedIn content strategy and managed monthly email newsletter campaigns through MailChimp to drive brand awareness and audience engagement. Designed and deployed market research surveys to capture customer insights and support data driven business development decisions.</p>
+        <div class="exp-tags"><span class="exp-tag">Email Marketing</span><span class="exp-tag">LinkedIn Strategy</span><span class="exp-tag">Market Research</span></div>
+      </div>
+    </div>
+    <div class="exp-item fade-up">
+      <div class="exp-meta"><span class="exp-date">Summer 2023</span><span class="exp-type">Internship</span></div>
+      <div class="exp-content">
+        <p class="exp-company">Pipeline Entrepreneurial Fellowship</p>
+        <p class="exp-title">Social Media Marketing Intern — YEP KC Scholar</p>
+        <p class="exp-desc">Selected as a YEP KC scholar through the Midwest's most competitive young professional internship program. Built Pipeline's social media strategy from the ground up, developed and managed their content calendar, and collaborated with the creative director on long form YouTube content production.</p>
+        <div class="exp-tags"><span class="exp-tag">Social Media Strategy</span><span class="exp-tag">Content Creation</span><span class="exp-tag">Video Production</span><span class="exp-tag">Brand Storytelling</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="fade-up">
+    <p class="section-label">Featured Projects</p>
+    <h2 class="section-title">Strategy in action.</h2>
+  </div>
+  <div class="projects-grid fade-up">
+    <div class="project-card">
+      <div class="project-banner banner-1"><svg viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div class="project-body">
+        <p class="project-num">Project 01</p>
+        <p class="project-title">AI Powered Marketing Automation System</p>
+        <p class="project-org">TVH — Summer 2026</p>
+        <p class="project-desc">During my internship at TVH I have been working on building a marketing automation system using Google Apps Script and Gemini to help streamline social media content operations. The system automatically routes weekly email notifications to the correct team member based on the phase and status of each social media post, and auto populates scheduled posts onto the social media content calendar, reducing manual effort and improving publishing consistency across the team. Additional automations are currently in development to help ease other pain points within the marketing department.</p>
+        <div><p class="project-result">Google Apps Script + Gemini</p><p class="project-result-label">Tools Used</p></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-banner banner-2"><svg viewBox="0 0 24 24" fill="white"><path d="M3 13h4v8H3v-8zm7-8h4v16h-4V5zm7 4h4v12h-4V9z"/></svg></div>
+      <div class="project-body">
+        <p class="project-num">Project 02</p>
+        <p class="project-title">Real World Learning — Brand & Community Growth</p>
+        <p class="project-org">Kauffman Foundation — 2024–2025</p>
+        <p class="project-desc">Developed and executed a data informed content strategy to grow the Real World Learning initiative's digital presence while supporting community engagement across Kansas City. Managed social media across platforms, analyzed performance data to iterate on content strategy, and supported key events including the ProX Showcase and Get on the Bus. Spoke weekly to approximately 600 students on professional development topics.</p>
+        <div><p class="project-result">42.9%</p><p class="project-result-label">Instagram Engagement Growth</p></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-banner banner-3"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg></div>
+      <div class="project-body">
+        <p class="project-num">Project 03</p>
+        <p class="project-title">Building thedailyavi — Brand Strategy at Scale</p>
+        <p class="project-org">TDA Media — 2025–Present</p>
+        <p class="project-desc">Built and scaled a personal media brand from the ground up across TikTok, Instagram, and YouTube. Developed content pillars, platform specific strategy, and a monetization model spanning brand partnerships and affiliate marketing. Secured partnerships with Apple, PopCorners, Sleepyhead, and more by building a pitch process, managing negotiations, and delivering campaign content that met brand objectives.</p>
+        <div><p class="project-result">23.5M+</p><p class="project-result-label">TikTok Views in the Past Year</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tda" id="tda">
+  <div class="fade-up">
+    <p class="section-label">TDA Media</p>
+    <h2 class="section-title">The business behind<br>the brand.</h2>
+  </div>
+  <div class="tda-grid fade-up">
+    <div class="tda-body">
+      <p>TDA Media is the business entity behind my personal brand thedailyavi, currently in the process of LLC formation. What started as a passion for content creation has grown into a fully operating digital media brand across TikTok, Instagram, and YouTube.</p>
+      <p>Through TDA Media I manage all aspects of brand strategy, content operations, and monetization — operating as both the creator and the business behind the content. This includes developing and executing a multi platform content strategy, managing a consistent publishing calendar, analyzing performance data to inform creative decisions, and building audience growth through data driven optimization.</p>
+      <p>On the brand partnership side I've secured brand partnerships with Apple, PopCorners, Sleepyhead, and more, managing the full partnership lifecycle from negotiation and contract review to content creation and delivery. I also monetize through affiliate marketing across Amazon, LTK, and ShopMy, driving consistent monthly revenue growth.</p>
+      <div class="tda-platforms">
+        <div class="tda-platform"><svg viewBox="0 0 24 24"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0115.54 3h-3.09v12.4a2.592 2.592 0 01-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 004.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg><span>TikTok</span></div>
+        <div class="tda-platform"><svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47a4.9 4.9 0 00-1.77 1.15A4.9 4.9 0 002.53 5.45c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.15 1.77.55.55 1.11.9 1.77 1.15.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 001.77-1.15 4.9 4.9 0 001.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 00-1.15-1.77A4.9 4.9 0 0018.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.87.3-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34a3.1 3.1 0 01-1.15-.75 3.1 3.1 0 01-.75-1.15c-.13-.35-.3-.87-.34-1.85-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.87-.3 1.85-.34 1.05-.05 1.37-.06 4.04-.06zm0 3.05a5.15 5.15 0 100 10.3 5.15 5.15 0 000-10.3zm0 8.5a3.35 3.35 0 110-6.7 3.35 3.35 0 010 6.7zm6.55-8.7a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg><span>Instagram</span></div>
+        <div class="tda-platform"><svg viewBox="0 0 24 24"><path d="M21.58 7.19a2.5 2.5 0 00-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.82.42a2.5 2.5 0 00-1.76 1.77C2 8.77 2 12 2 12s0 3.23.42 4.81a2.5 2.5 0 001.76 1.77C5.75 19 12 19 12 19s6.25 0 7.82-.42a2.5 2.5 0 001.76-1.77C22 15.23 22 12 22 12s0-3.23-.42-4.81zM10 15.5v-7l6 3.5-6 3.5z"/></svg><span>YouTube</span></div>
+      </div>
+      <a href="https://thedailyavi.my.canva.site/aviana-weist-marketing-portfolio" target="_blank" class="tda-canva-btn">View Full TDA Media Page →</a>
+    </div>
+    <div class="tda-stats">
+      <div class="tda-stat"><p class="tda-stat-num">23.5M+</p><p class="tda-stat-label">TikTok Views (Past Year)</p></div>
+      <div class="tda-stat"><p class="tda-stat-num">21K+</p><p class="tda-stat-label">Total Followers</p></div>
+      <div class="tda-stat"><p class="tda-stat-num">2.6M+</p><p class="tda-stat-label">TikTok Likes</p></div>
+      <div class="tda-stat"><p class="tda-stat-num">3+</p><p class="tda-stat-label">Platforms</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="skills" id="skills">
+  <div class="fade-up">
+    <p class="section-label">Skills & Tools</p>
+    <h2 class="section-title">What I bring<br>to the table.</h2>
+  </div>
+  <div class="skills-grid fade-up">
+    <div class="skill-group">
+      <p class="skill-group-title">Marketing Skills</p>
+      <div class="skill-list">
+        <p class="skill-item">Social Media Strategy</p>
+        <p class="skill-item">Content Marketing</p>
+        <p class="skill-item">Brand Strategy</p>
+        <p class="skill-item">Email Marketing</p>
+        <p class="skill-item">SEO</p>
+        <p class="skill-item">Influencer Marketing</p>
+        <p class="skill-item">Campaign Analytics</p>
+        <p class="skill-item">Marketing Automation</p>
+        <p class="skill-item">Copywriting</p>
+        <p class="skill-item">Market Research</p>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-title">Tools & Platforms</p>
+      <div class="skill-list">
+        <p class="skill-item">Google Analytics</p>
+        <p class="skill-item">Google Looker Studio</p>
+        <p class="skill-item">Google Apps Script</p>
+        <p class="skill-item">Showpad</p>
+        <p class="skill-item">MailChimp</p>
+        <p class="skill-item">HubSpot</p>
+        <p class="skill-item">Canva & CapCut</p>
+        <p class="skill-item">WordPress</p>
+        <p class="skill-item">Microsoft Office & Excel</p>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-title">Certifications</p>
+      <div class="skill-list">
+        <p class="skill-item">Google Analytics Certification</p>
+        <p class="skill-item">Google Ads Search Certification</p>
+        <p class="skill-item">Google Ads Display Certification</p>
+        <p class="skill-item">HubSpot Social Media Marketing</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="education" id="education">
+  <div class="fade-up">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic foundation.</h2>
+  </div>
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <p class="edu-degree">M.S., Marketing</p>
+      <p class="edu-school">University of Tampa</p>
+      <p class="edu-dates">Aug 2026 — May 2027</p>
+    </div>
+    <div class="edu-card">
+      <p class="edu-degree">B.S., Marketing</p>
+      <p class="edu-school">University of Tampa</p>
+      <p class="edu-dates">Aug 2024 — Dec 2026</p>
+      <div class="edu-honors">
+        <p class="edu-honor">GPA: 3.98</p>
+        <p class="edu-honor">Presidential Scholarship</p>
+        <p class="edu-honor">Beta Gamma Sigma Honor Society</p>
+        <p class="edu-honor">Phi Kappa Phi Honor Society</p>
+        <p class="edu-honor">Founder & President, Women in Business</p>
+        <p class="edu-honor">Delta Gamma — Chapter Scholarship Recipient</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="contact-title">Let's connect.</h2>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/avianaweist" target="_blank" class="btn-primary">LinkedIn</a>
+    <a href="mailto:avianaweist@gmail.com" class="btn-outline">Email Me</a>
+    <a href="Aviana-Weist-Resume.pdf" target="_blank" class="btn-outline">Download Resume</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Aviana Weist</p>
+  <p>MS Marketing Candidate · University of Tampa</p>
+</footer>
+
+<!-- CHATBOT BUBBLE -->
+<button id="chat-bubble" onclick="toggleChat()" aria-label="Ask me anything">
+  <span id="chat-badge">Ask Me</span>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+</button>
+
+<!-- CHATBOT WINDOW -->
+<div id="chat-window">
+  <div id="chat-header">
+    <div id="chat-header-left">
+      <p id="chat-header-title">Ask Me Anything</p>
+      <p id="chat-header-sub">Ask me about my experience, skills, or background</p>
+    </div>
+    <button id="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div id="chat-messages">
+    <div class="msg bot">Hi, I'm Avi! Ask me anything about my experience, skills, projects, or goals.</div>
+  </div>
+  <div id="chat-suggestions">
+    <span class="suggestion" onclick="sendSuggestion(this)">What experience do you have?</span>
+    <span class="suggestion" onclick="sendSuggestion(this)">Tell me about TDA Media</span>
+    <span class="suggestion" onclick="sendSuggestion(this)">What are you looking for after grad school?</span>
+    <span class="suggestion" onclick="sendSuggestion(this)">What tools do you know?</span>
+  </div>
+  <div id="chat-input-area">
+    <input id="chat-input" type="text" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') sendMessage()" />
+    <button id="chat-send" onclick="sendMessage()">→</button>
+  </div>
+</div>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ─────────────────────────────────────────────────────────
+     ASK-ME-ANYTHING CHATBOT
+     Runs entirely in the browser — no API key, no backend,
+     no external calls. Works the moment this file is opened
+     or hosted anywhere (e.g. GitHub Pages), and it can't leak
+     an API key because there isn't one. Answers are generated
+     from the knowledge base below, sourced from Avi's master
+     info doc, so every response is accurate and controllable.
+
+     To teach it something new: add a new entry to KB.intents
+     with a topic key, keyword triggers, and a reply.
+  ───────────────────────────────────────────────────────── */
+
+  const KB = {
+    name: "Avi",
+    intents: [
+      {
+        key: "greeting",
+        keywords: ["hi", "hello", "hey", "who are you", "who is avi", "about you", "tell me about avi", "introduce", "what does she do", "tell me about her", "what do you do"],
+        reply: "Hi! My name is Aviana, but everyone calls me Avi. I am a marketing professional and incoming MS Marketing candidate at the University of Tampa, graduating in spring 2027. My background spans social media strategy, content marketing, SEO, email marketing, and marketing automation across both corporate and entrepreneurial settings. I am also the founder of TDA Media, the business behind my personal brand thedailyavi, and the founder and president of Women in Business at the University of Tampa. I'm passionate about building brands that connect with real audiences and developing strategies that drive measurable impact."
+      },
+      {
+        key: "experience_overview",
+        keywords: ["experience", "background", "career", "worked", "work history", "jobs", "internship", "internships"],
+        reply: "My experience spans TDA Media (Founder, May 2025–present), TVH (Marketing Intern, May–Aug 2026), the Kauffman Foundation (Contracted Social Media & Marketing Specialist, May 2024–Aug 2025, and ProX Social Media Intern before that), Go Local Interactive (SEO Intern, Summer 2025), Cornerstone Executive Search (Digital Marketing Intern, Summer 2024), and Pipeline Entrepreneurial Fellowship (Social Media Marketing Intern, Summer 2023). Want details on any one of these?"
+      },
+      {
+        key: "resume",
+        keywords: ["resume", "cv", "download resume"],
+        reply: "You can view or download my full resume using the Resume link at the top of this page, or the Download Resume button in the Contact section below."
+      },
+      {
+        key: "resume_walkthrough",
+        keywords: ["walk me through your resume", "walk through your resume", "walk through your background", "walk me through your background", "walk me through your experience"],
+        reply: "I started doing marketing professionally in the summer of 2022, going into my junior year of high school, when I joined the Kauffman Foundation as the ProX Social Media Intern managing digital communication for over 600 high school interns. I stayed in that role through April 2024 and was then retained as a contracted social media and marketing specialist from May 2024 through August 2025, working up to 40 hours a week during the summer and 10 to 20 hours a week during the academic year. During that contract, I grew their Instagram engagement by 42.9%, led intern training sessions, and spoke in front of about 600 students on professional development topics. In the summer of 2023, I was also selected as a YEP KC Scholar and interned at Pipeline Entrepreneurial Fellowship, where I worked on social media strategy and YouTube content production. In the summer of 2024, I interned at Cornerstone Executive Search doing LinkedIn content strategy and email marketing, and in the summer of 2025, I interned at Go Local Interactive as an SEO intern, gaining hands-on experience in keyword research, on-page optimization, and Google Analytics. Simultaneously, I started building TDA Media in May 2025, the business behind my personal brand thedailyavi, where I have grown to 23.5M+ TikTok views in the past year and secured multiple brand partnerships. This summer, I am interning at TVH, where I am building a marketing automation system using Google Apps Script and Gemini, writing email copy, and contributing to various marketing team initiatives. I am currently finishing my undergraduate degree at the University of Tampa with a 3.98 GPA (one class remaining in the fall) and starting my MS in Marketing this fall with an expected graduation of spring 2027."
+      },
+      {
+        key: "marketing_duration",
+        keywords: ["how long have you been doing marketing", "how long have you been in marketing", "how long have you been working in marketing"],
+        reply: "I have been doing marketing professionally since the summer of 2022. I completed my first internship at the Kauffman Foundation as the ProX Social Media Intern going into my junior year of high school. From there, I kept going and have not stopped since. By the time I graduate with my master's in spring 2027, I will have been working in marketing for almost five years across internships, contracted work, and running my own business."
+      },
+      {
+        key: "experience_requirement",
+        keywords: ["experience requirement", "non-internship experience", "address the gap", "years of relevant experience", "meet the experience requirement"],
+        reply: "My professional marketing experience actually goes back to the summer of 2022 when I started as the ProX Social Media Intern at the Kauffman Foundation going into my junior year of high school. I stayed in that role for nearly two years before transitioning into a contracted position from May 2024 through August 2025, where I was working up to 40 hours a week. Alongside that, I founded TDA Media in May 2025, which I have been running as a real business ever since. So while some of my experience comes through internships, the contracted work at Kauffman and running TDA Media represent continuous non-internship professional experience going back several years."
+      },
+      {
+        key: "tda_media",
+        keywords: ["tda media", "tda", "thedailyavi", "personal brand", "tiktok", "influencer", "brand partner", "content creator", "creator", "followers", "views", "likes"],
+        reply: "TDA Media, formerly known as The Daily Avi Media, is currently in the process of becoming an LLC. What started as a passion for content creation has grown into a fully operational digital media brand, generating 23.5M+ TikTok views in the past year with over 21,000 followers across platforms. Through TDA Media, I manage all aspects of brand strategy, content operations, and monetization. I have secured brand partnerships with Apple, PopCorners, Sleepyhead, and more, managing everything from negotiation to content delivery, and I monetize through affiliate marketing across Amazon, LTK, and ShopMy. Running TDA Media has given me a really hands-on understanding of audience behavior, brand positioning, and what it actually takes to grow and monetize a brand from scratch."
+      },
+      {
+        key: "tvh",
+        keywords: ["tvh"],
+        reply: "At TVH, I am currently interning on the marketing team and working on a few different things. One of my main projects is building a marketing automation system using Google Apps Script and Gemini to streamline social media content operations. The system automatically routes weekly email notifications to the correct team member based on the phase and status of each social media post, and auto-populates scheduled posts onto the content calendar, which has helped reduce manual effort and improve publishing consistency across the team. Beyond that, I have been writing copy for promotional email campaigns and various marketing initiatives, planning team outings, and contributing to day-to-day marketing assignments while also helping identify and ease pain points across the team and cross-functionally with other departments."
+      },
+      {
+        key: "kauffman",
+        keywords: ["kauffman", "real world learning", "prox"],
+        reply: "My time at the Kauffman Foundation spans over three years and is where a lot of my professional foundation was built. I started in June 2022, going into my junior year of high school, as the ProX Social Media Intern, managing the digital communication strategy for the ProX Summer program, which supports over 600 high school interns across the Kansas City area. I stayed in that role through April 2024, and through strong performance was retained as a contracted social media and marketing specialist from May 2024 through August 2025. In the contracted role, I supported the Real World Learning initiative, a Kauffman Foundation program spanning 34 school districts that prepares nearly 100,000 Kansas City area high school students for profession-based career experiences. During the summer, I worked up to 40 hours a week and 10 to 20 hours a week throughout the academic year. I drove 42.9% Instagram engagement growth through data-informed short-form content strategy, led intern training sessions teaching content creation, social media marketing, and professional development skills, and represented Real World Learning as a speaker in front of approximately 600 students on career readiness topics. I also supported community events including the ProX Showcase and Get on the Bus throughout the year."
+      },
+      {
+        key: "go_local",
+        keywords: ["go local", "seo", "search engine"],
+        reply: "As an SEO Intern at Go Local Interactive (Summer 2025), I executed local SEO strategy across multiple client accounts — Google Business Profile optimization, keyword research, metadata, HTML tags, and internal linking — and used Google Analytics to turn performance data into client-ready recommendations. I earned my Google Analytics and Google Ads certifications during this internship."
+      },
+      {
+        key: "cornerstone",
+        keywords: ["cornerstone", "linkedin", "mailchimp", "newsletter"],
+        reply: "At Cornerstone Executive Search (Digital Marketing Intern, Summer 2024), I expanded the company's LinkedIn presence through content strategy and managed monthly email newsletters in MailChimp, plus designed and deployed market research surveys."
+      },
+      {
+        key: "pipeline",
+        keywords: ["pipeline", "yep kc", "young entrepreneurs"],
+        reply: "I was a YEP KC Scholar with the Pipeline Entrepreneurial Fellowship (Summer 2023) — one of the Midwest's most competitive high school internship programs. I built Pipeline's social media strategy from scratch and collaborated on long-form YouTube content production."
+      },
+      {
+        key: "education",
+        keywords: ["education", "school", "university", "degree", "gpa", "college", "tampa", "graduate", "major", "award", "awards", "honor"],
+        reply: "I am currently an MS in Marketing candidate at the University of Tampa, beginning the program this fall with an expected graduation of May 2027. I am also wrapping up my undergraduate degree simultaneously, taking my final undergraduate course this fall alongside my first graduate courses. I finished my undergrad with a 3.98 GPA and am a Presidential Scholarship recipient as well as a member of Beta Gamma Sigma and Phi Kappa Phi Honor Societies."
+      },
+      {
+        key: "undergrad_classes",
+        keywords: ["undergrad classes", "undergraduate classes", "classes in undergrad", "classes did you take", "relevant classes", "classes"],
+        reply: "Some of the most relevant classes I took were Marketing Strategy, Social Media Marketing, Marketing Research, and Promotion and Branding. Those four really gave me a strong foundation and shaped how I think about marketing work in a real world context. Each one added a different dimension to how I approach campaigns, brand decisions, and consumer behavior."
+      },
+      {
+        key: "grad_classes",
+        keywords: ["masters classes", "master's classes", "graduate classes", "classes this fall", "grad school classes", "classes are you taking"],
+        reply: "This fall I am taking Business Research Methods, Strategic Marketing Analysis, and Professional Selling and Sales Management. I am really looking forward to going deeper on the analytical and strategic side of marketing through the program."
+      },
+      {
+        key: "impactful_class",
+        keywords: ["impactful class", "favorite class", "best class", "most impactful", "hardest class"],
+        reply: "My Marketing Research class was the most impactful. It pushed me to think about marketing in a way I had not before and challenged me to approach problems more analytically. Although it was one of the more difficult courses I took, it was incredibly rewarding and fundamentally changed how I think about data and decision making in marketing."
+      },
+      {
+        key: "leadership",
+        keywords: ["women in business", "wib", "leadership", "founder president"],
+        reply: "Women in Business is something I am really proud of. I founded the organization at the University of Tampa in spring 2026 with the mission of empowering women to lead, connect, and thrive in the business world. We soft-launched in the spring, and our first full official semester is this fall. I recruited and placed nine leaders across Marketing, Operations, and Finance through a competitive selection cycle, and as president, I oversee all aspects of the organization, including leading our marketing department, managing our social media presence, email communications, and outreach strategy, while also working cross-functionally with our Operations and Finance departments and overseeing our executive board. Building something from the ground up has been one of the most rewarding experiences of my college career and has really strengthened my skills in organizational leadership, strategic planning, and cross-functional team management."
+      },
+      {
+        key: "skills",
+        keywords: ["skill", "tool", "software", "platform", "know", "proficient", "can she"],
+        reply: "My core marketing skills include social media strategy, content marketing, brand strategy, email marketing, SEO, influencer marketing, campaign analytics, marketing automation, copywriting, and market research. My toolkit spans Google Analytics, Looker Studio, Google Apps Script, Showpad, MailChimp, HubSpot, Canva, CapCut, WordPress, and Microsoft Office/Excel."
+      },
+      {
+        key: "certifications",
+        keywords: ["certification", "certified", "certificate"],
+        reply: "I hold Google Analytics, Google Ads Search, and Google Ads Display certifications, plus the HubSpot Social Media Marketing certification."
+      },
+      {
+        key: "goals",
+        keywords: ["goal", "looking for", "next", "future", "dallas", "plan", "after grad", "career goal", "job search", "moving", "relocate", "relocating", "available", "full time", "want to work", "start date"],
+        reply: "I am looking for a role in Dallas, TX where I can bring my digital marketing background into a corporate environment and continue growing across multiple marketing functions. Through my experience across internships and contracted work, I have had the chance to see a lot of different sides of marketing, including the entrepreneurial side through TDA Media, the nonprofit side through the Kauffman Foundation, the agency side through Go Local Interactive, and the brand side through TVH. Being on the brand side this summer really solidified for me that that is where I want to be. There is something about working within a brand and being fully invested in one company's story and strategy that I find really exciting. Ideally I want to be somewhere that gives me exposure to different areas of marketing, whether that is brand strategy, digital, analytics, or marketing technology, so I can come in with breadth and grow into real depth in the areas where I can make the biggest impact. I am looking for a company where I can do meaningful work, be surrounded by strong marketing talent, and have a clear path to grow. I am not just looking for a job; I am looking for the right place to build a career."
+      },
+      {
+        key: "projects",
+        keywords: ["project", "case study", "portfolio piece", "achievement", "accomplishment", "proudest"],
+        reply: "Here are my three featured case studies: the AI-powered marketing automation system I built at TVH (using Google Sheets and Apps Script), driving 42.9% Instagram engagement growth for the Real World Learning initiative during my time at Kauffman, and scaling thedailyavi to 23.5M+ TikTok views through TDA Media. Scroll to the Projects section to see all three."
+      },
+      {
+        key: "personal",
+        keywords: ["dog", "millie", "hobby", "hometown", "kansas city", "personal", "fun fact", "sorority", "delta gamma", "greek life"],
+        reply: "I'm originally from the Kansas City, KS area and I'm relocating to Dallas, TX. I'm a member of Delta Gamma sorority at the University of Tampa, I have a mini Aussiepoo named Millie, and I'd describe myself as a Type-A, ambitious systems thinker."
+      },
+      {
+        key: "strength",
+        keywords: ["greatest strength", "your strength", "strong point", "best quality"],
+        reply: "My work ethic and discipline. In all areas of my life I have always held a high standard for myself. In high school I built that discipline by waking up at 4:30 AM to work out before school, and I carried that same mindset into college by accelerating my degree, balancing content creation with academics, and consistently taking on more than what was required of me. I genuinely believe that discipline is what separates people who get things done from people who just talk about getting things done."
+      },
+      {
+        key: "weakness",
+        keywords: ["weakness", "weak point", "area of improvement", "biggest weakness"],
+        reply: "Delegating. I have always had a tendency to want to do everything myself because I care deeply about the quality of the work. Founding Women in Business and building an executive board of nine people has really pushed me to practice trusting others and letting them take ownership of their roles. I have grown a lot in that area and I think leading WIB has been the biggest catalyst for that shift."
+      },
+      {
+        key: "setback",
+        keywords: ["didn't go as planned", "did not go as planned", "time you failed", "mistake", "setback"],
+        reply: "During one of my summers at the Kauffman Foundation I worked under a manager whose style did not align with mine. It was challenging at times but it taught me something really valuable — you are going to work with people you do not always click with, and what matters is staying professional, staying focused on the work, and not letting a personality difference derail your performance. I came out of that experience more adaptable and more self aware about how I show up in a professional environment regardless of the circumstances around me."
+      },
+      {
+        key: "challenge_overcome",
+        keywords: ["challenge", "overcome", "obstacle", "difficult experience"],
+        reply: "One of my biggest challenges has been learning how to effectively articulate my level of experience relative to my age. I started my career earlier than most, with internships beginning in high school, and I have built real professional experience through contracted work and running my own business alongside my academic career. But being young means I have had to work really hard at communicating that depth of experience confidently and clearly so people see the substance behind it rather than just the age. That has pushed me to be very intentional about how I tell my story and frame my work."
+      },
+      {
+        key: "why_marketing",
+        keywords: ["why marketing", "drew you to marketing", "why did you choose marketing", "passion for marketing", "why this field"],
+        reply: "I started doing marketing internships in high school before I even knew what I wanted to study, and that experience is what drew me in. I loved that marketing lives at the intersection of creativity and strategy — you get to build something and then measure whether it actually worked. The analytical side keeps me sharp and the creative side keeps me excited. I have never second guessed the direction."
+      },
+      {
+        key: "why_utampa",
+        keywords: ["why university of tampa", "why utampa", "why tampa", "why stay for your masters", "why continue at tampa", "why did you choose", "why did you pick", "chose the university of tampa"],
+        reply: "I originally chose the University of Tampa because I was planning to pursue their accelerated bachelor's to master's program. I ended up pivoting and choosing to graduate early from undergrad instead, but the small class sizes, real world focus, and genuinely invested professors made staying for my master's an easy decision. It felt like the right environment to keep growing in."
+      },
+      {
+        key: "deadlines_workstyle",
+        keywords: ["deadline", "deadlines", "competing priorities", "handle pressure", "work under pressure", "prioritize"],
+        reply: "I am very type A so I rely heavily on systems and planning. I map everything out in Notion so I always have a clear picture of what needs to happen and when. When things get really busy I prioritize ruthlessly and focus on what moves the needle most. I have also gotten a lot better at knowing when to ask for help or bring in others rather than trying to carry everything on my own."
+      },
+      {
+        key: "leadership_style",
+        keywords: ["leadership style", "how do you lead", "type of leader", "manage a team"],
+        reply: "I lead by being deeply invested in the people around me while holding a high standard for the work. I care a lot about giving people real ownership and the space to grow into their roles rather than micromanaging. I think that comes from being very independent myself and wanting to prove my own capabilities, and I try to give the people I lead that same opportunity. In my role as founder and president of Women in Business I have really focused on building a team where everyone has a meaningful role and feels accountable to it."
+      },
+      {
+        key: "team_vs_independent",
+        keywords: ["team player", "work independently", "collaborate", "independently"],
+        reply: "Honestly, both — depending on the context. I do some of my best strategic thinking independently and I appreciate having space to go deep on a problem. But I also genuinely love collaborating when the team is motivated and everyone is contributing something different. At TVH I have been working cross functionally with different departments and it has reinforced how much better the work gets when you have the right people involved."
+      },
+      {
+        key: "marketing_trends",
+        keywords: ["marketing trends", "trends", "brands do you like", "brands do you find", "excites you about marketing", "exciting right now"],
+        reply: "I am really fascinated by how brands are using AI to personalize marketing at scale — I have seen how powerful that can be even in my own work building automations at TVH. I am also really excited by how social commerce is evolving on TikTok and Instagram. As someone who has built a brand on those platforms, I have a front row seat to how quickly consumer behavior is shifting, and it is exciting to watch large brands figure out how to keep up. The brands that are winning right now are the ones that feel genuinely human rather than overly polished, and I think that is a trend that is only going to continue."
+      },
+      {
+        key: "surprising_fact",
+        keywords: ["surprised to learn", "surprising fact", "something people don't know", "didn't know about you", "people surprised", "surprise people about you", "what would surprise"],
+        reply: "That I started doing marketing professionally in high school in the summer of 2022. Most people assume my professional experience started when I got to UTampa, but by the time I started college, I had already been working in marketing for over two years. That head start is a big part of why I came into college so focused, and it is something I am really proud of."
+      },
+      {
+        key: "contact",
+        keywords: ["contact", "email", "reach", "linkedin", "hire", "connect"],
+        reply: "You can reach me at avianaweist@gmail.com or connect with me on LinkedIn at linkedin.com/in/avianaweist — both linked in the Contact section below."
+      }
+    ],
+    fallback: "I don't know the answer to this — please contact me at avianaweist@gmail.com for clarity on your question."
+  };
+
+  function generateReply(userText) {
+    const text = userText.toLowerCase();
+    let best = null, bestScore = 0;
+    for (const intent of KB.intents) {
+      let score = 0;
+      for (const kw of intent.keywords) {
+        // Word-boundary match so short keywords (e.g. "hi") don't false-positive
+        // inside unrelated words (e.g. "leadership", "achievement").
+        const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const pattern = new RegExp('\\b' + escaped + '\\b');
+        if (pattern.test(text)) score += kw.split(" ").length; // multi-word keywords weigh more
+      }
+      if (score > bestScore) { bestScore = score; best = intent; }
+    }
+    return best ? best.reply : KB.fallback;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     QUESTION LOGGING
+     Every question a visitor asks gets silently sent to a
+     private Google Form -> Google Sheet so Avi can review what
+     people are actually asking. Fire-and-forget: uses no-cors
+     mode (Google Forms doesn't allow reading the response from
+     a browser) and never blocks or breaks the chat if it fails.
+  ───────────────────────────────────────────────────────── */
+  const QUESTION_LOG_FORM_ID = "1FAIpQLSfHNRwtpdUO9XFy0nzEd0pZiHAWD-1hLLjY59bA9CRramre7g";
+  const QUESTION_LOG_ENTRY_ID = "1536390554";
+
+  function logQuestion(questionText) {
+    try {
+      const url = `https://docs.google.com/forms/d/e/${QUESTION_LOG_FORM_ID}/formResponse`;
+      const body = new URLSearchParams();
+      body.append(`entry.${QUESTION_LOG_ENTRY_ID}`, questionText);
+      fetch(url, { method: "POST", mode: "no-cors", body }).catch(() => {});
+    } catch (e) {
+      // Never let logging failures affect the chat experience.
+    }
+  }
+
+  let isOpen = false;
+
+  function toggleChat() {
+    isOpen = !isOpen;
+    document.getElementById('chat-window').classList.toggle('open', isOpen);
+    if (isOpen) document.getElementById('chat-input').focus();
+  }
+
+  function sendSuggestion(el) {
+    document.getElementById('chat-input').value = el.textContent;
+    sendMessage();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    addMessage(text, 'user');
+    logQuestion(text);
+    const typing = addTyping();
+
+    const delay = 450 + Math.random() * 400;
+    setTimeout(() => {
+      typing.remove();
+      addMessage(generateReply(text), 'bot');
+    }, delay);
+  }
+
+  function addMessage(text, type) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = `msg ${type}`;
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function addTyping() {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg typing';
+    div.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+</script>
+
+</body>
+</html>
